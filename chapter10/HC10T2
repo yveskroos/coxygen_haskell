@@ -1,0 +1,15 @@
+-- Définition de la classe Summable
+class Summable a where
+    sumUp :: [a] -> a
+
+-- Instance pour les entiers
+instance Summable Int where
+    sumUp []     = 0
+    sumUp (x:xs) = x + sumUp xs
+
+-- Exemple d'utilisation
+main :: IO ()
+main = do
+    print (sumUp [1, 2, 3, 4, 5] :: Int)  
+    print (sumUp [10, 20, 30]    :: Int)   
+    print (sumUp []              :: Int)   
