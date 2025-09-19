@@ -1,0 +1,14 @@
+-- Définition de la classe Concatenatable
+class Concatenatable a where
+    concatWith :: a -> a -> a
+
+-- Instance pour String
+instance Concatenatable [Char] where
+    concatWith s1 s2 = s1 ++ s2
+
+-- Exemple d'utilisation
+main :: IO ()
+main = do
+    let str1 = "bonjour, "
+    let str2 = "Yves!"
+    putStrLn $ concatWith str1 str2  
