@@ -1,0 +1,25 @@
+-- Définition de la classe Comparable
+class Comparable a where
+    compareWith :: a -> a -> Ordering
+
+-- Type Blockchain
+data Blockchain = Blockchain
+    { chainName   :: String
+    , chainLength :: Int
+    } deriving (Show, Eq)
+
+-- Implémentation de Comparable pour Blockchain
+instance Comparable Blockchain where
+    compareWith bc1 bc2 =
+        compare (chainLength bc1) (chainLength bc2)
+
+-- Exemple d'utilisation
+main :: IO ()
+main = do
+    let btc  = Blockchain "Bitcoin" 1000
+    let eth  = Blockchain "Ethereum" 800
+    let card = Blockchain "Cardano" 1000
+
+    print $ compareWith btc eth   -
+    print $ compareWith eth btc   
+    print $ compareWith btc card  
