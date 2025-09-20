@@ -1,0 +1,39 @@
+-- Définition du type Present (cadeau)
+data Present a = Aucun | Cadeau a
+    deriving (Show, Eq)
+
+-- Définition de la classe Conteneur
+class Conteneur c where
+    estVide    :: c a -> Bool
+    contient   :: (Eq a) => a -> c a -> Bool
+    remplacer  :: a -> c a -> c a
+
+-- Instance de Conteneur pour Present
+instance Conteneur Present where
+    estVide Aucun         = True
+    estVide (Cadeau _)    = False
+
+    contient _ Aucun      = False
+    contient x (Cadeau y) = x == y
+
+    remplacer x Aucun       = Cadeau x
+    remplacer x (Cadeau _)  = Cadeau x
+
+-- Fonction devinerQuoiDedans
+devinerQuoiDedans :: (Conteneur c, Eq a, Show a) => a -> c a -> String
+devinerQuoiDedans element cont =
+    if contient element cont
+       then "Oui ✅, le conteneur contient " ++ show element
+       else "Non ❌, le conteneur ne contient pas " ++ show element
+
+-- Programme principal de test
+main :: IO ()
+main = do
+    let p1 = Aucun
+    let p2 = Cadeau "Montre"
+    let p3 = Cadeau "Livre"
+
+    putStrLn (devinerQuoiDedans "Montre" p1) -- Non ❌
+    putStrLn (devinerQuoiDedans "Montre" p2) -- Oui ✅
+    putStrLn (devinerQuoiDedans "Livre"  p2) -- Non ❌
+    putStrLn (devinerQuoiDedans "Livre"  p3) -- Oui ✅
