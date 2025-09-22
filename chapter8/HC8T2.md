@@ -1,32 +1,26 @@
-HC6T2, c’est-à-dire une fonction récursive en Haskell qui calcule le nième nombre de Fibonacci, avec une fonction "main" pour tester :
+-- HC8T2 : Types personnalisés et constructeurs de données
 
+-- Type PaymentMethod avec trois constructeurs
+data PaymentMethod = Cash | Card | Cryptocurrency
+    deriving (Show, Eq)
 
-Code Haskell – Fibonacci récursif
+-- Type Personne avec nom, adresse et mode de paiement
+data Personne = Personne
+    { nom           :: String
+    , adresse       :: (String, Int)  -- Tuple : (rue, numéro)
+    , modePaiement  :: PaymentMethod
+    } deriving (Show, Eq)
 
--- Définition de la fonction fibonacci
-fibonacci :: Integer -> Integer
-fibonacci 0 = 0
-fibonacci 1 = 1
-fibonacci n = fibonacci (n - 1) + fibonacci (n - 2)
+-- Création d'une personne bob qui paie en espèces
+bob :: Personne
+bob = Personne
+    { nom = "yves"
+    , adresse = ("Rue Principale", 123)
+    , modePaiement = Cash
+    }
 
--- Fonction main pour exécuter un exemple
+-- Programme principal
 main :: IO ()
 main = do
-    let n = 10  -- Tu peux changer cette valeur pour tester d'autres positions
-    putStrLn ("Le " ++ show n ++ "e nombre de Fibonacci est " ++ show (fibonacci n))
-
-  
-  📌 Pour exécuter
-
-1. Enregistre ce code dans un fichier "Main.hs".
-2. Ensuite, exécute-le comme ceci :
-
-  Avec GHC :
-
-
-ghc Main.hs -o fibonacci && ./fibonacci
-
-
-  Ou avec Cabal :
-
-cabal run
+    putStrLn "Informations sur yves :"
+    print bob
